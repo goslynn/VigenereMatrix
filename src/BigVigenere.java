@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class BigVigenere {
     private int[] key;
-    private char[][] vigenereMatrix;
+    private final char[][] vigenereMatrix;
     private static final Scanner lector = new Scanner(System.in);
-    private static final String CARACTERES = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789";
+    private static final String CARACTERES = "abcdefghijklmnnopqrstuvwxyzABCDEFGHIJKLMNnOPQRSTUVWXYZ0123456789";
 
     public BigVigenere() {
-        System.out.print("Ingrese el tamaño de la clave numérica: ");
+        System.out.print("Ingrese el tamano de la clave numérica: ");
         int size = lector.nextInt();
 
         this.key = new int[size];
@@ -29,7 +29,7 @@ public class BigVigenere {
     }
 
     private int pedirClave() throws IndexOutOfBoundsException{
-        System.out.printf("Ingrese la clave: ");
+        System.out.print("Ingrese la clave: ");
         int clave = lector.nextInt();
         if (clave > 64){
             throw new IndexOutOfBoundsException("Ingrese numeros menores a 64");
@@ -64,14 +64,14 @@ public class BigVigenere {
     }
 
     public void imprimirKey() {
-        for (int i = 0; i < key.length; i++) {
-            System.out.println(key[i]);
+        for (int j : key) {
+            System.out.println(j);
         }
     }
 
     public String encrypt(String message) {
         StringBuilder mensaje = new StringBuilder(message.length());
-        int mensajeCopia[] = new int[message.length()];
+        int[] mensajeCopia = new int[message.length()];
 
         for (int i = 0; i < message.length(); i++) {
             int index = CARACTERES.indexOf(message.charAt(i));
@@ -117,13 +117,13 @@ public class BigVigenere {
         String mensajeDescifrado = decrypt(mensajeEncriptado);
         System.out.println("Mensaje descifrado: " + mensajeDescifrado);
 
-        System.out.print("Ingrese el tamaño de la nueva clave: ");
-        int nuevoTamaño = lector.nextInt();
+        System.out.print("Ingrese el tamano de la nueva clave: ");
+        int nuevoTamano = lector.nextInt();
         System.out.print("Ingrese la nueva clave numérica: ");
 
-        int[] nuevaClave = new int[nuevoTamaño];
+        int[] nuevaClave = new int[nuevoTamano];
         int contador = 0;
-        while (contador < nuevoTamaño) {
+        while (contador < nuevoTamano) {
             int valor = lector.nextInt();
             if (valor < 64) {
                 nuevaClave[contador] = valor;
